@@ -21,6 +21,14 @@ Create these Gmail labels:
 - `auto/invoice`
 - `auto/receipt`
 - `auto/transaction`
+- `auto/shipping`
+- `auto/shopping`
+- `auto/travel`
+- `auto/support`
+- `auto/education`
+- `auto/job`
+- `auto/social`
+- `auto/subscription`
 - `auto/newsletter`
 - `auto/system-alert`
 - `auto/account-security`
@@ -47,6 +55,42 @@ Create these Gmail labels:
   - keep in inbox
 - `transaction`
   - add `auto/transaction`
+  - add `auto/processed`
+  - keep in inbox
+- `shipping`
+  - add `auto/shipping`
+  - add `auto/processed`
+  - keep in inbox
+- `shopping`
+  - add `auto/shopping`
+  - add `auto/processed`
+  - keep in inbox
+- `travel`
+  - add `auto/travel`
+  - add `auto/processed`
+  - keep in inbox
+  - star
+- `support`
+  - add `auto/support`
+  - add `auto/processed`
+  - keep in inbox
+  - star
+- `education`
+  - add `auto/education`
+  - add `auto/processed`
+  - keep in inbox
+- `job`
+  - add `auto/job`
+  - add `auto/processed`
+  - keep in inbox
+  - star
+- `social`
+  - add `auto/social`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `subscription`
+  - add `auto/subscription`
   - add `auto/processed`
   - keep in inbox
 - `invoice`

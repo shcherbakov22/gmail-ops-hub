@@ -51,7 +51,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const typeLabels = {\n  Label_5: 'invoice',\n  Label_6: 'receipt',\n  Label_17: 'transaction',\n  Label_7: 'newsletter',\n  Label_8: 'system-alert',\n  Label_9: 'account-security',\n  Label_10: 'personal',\n};\n\nreturn $input.all().flatMap((item) => {\n  const ids = Array.isArray(item.json.labelIds) ? item.json.labelIds : [];\n  const matched = ids.filter((id) => Object.prototype.hasOwnProperty.call(typeLabels, id));\n  if (matched.length !== 1) return [];\n  return [{\n    json: {\n      messageId: item.json.id,\n      from: item.json.from || '',\n      subject: item.json.subject || '',\n      label: typeLabels[matched[0]],\n    },\n  }];\n});"
+        "jsCode": "const typeLabels = {\n  \"Label_5\": \"invoice\",\n  \"Label_6\": \"receipt\",\n  \"Label_17\": \"transaction\",\n  \"Label_18\": \"shipping\",\n  \"Label_19\": \"shopping\",\n  \"Label_20\": \"travel\",\n  \"Label_21\": \"support\",\n  \"Label_22\": \"education\",\n  \"Label_23\": \"job\",\n  \"Label_24\": \"social\",\n  \"Label_25\": \"subscription\",\n  \"Label_7\": \"newsletter\",\n  \"Label_8\": \"system-alert\",\n  \"Label_9\": \"account-security\",\n  \"Label_10\": \"personal\"\n};\n\nreturn $input.all().flatMap((item) => {\n  const ids = Array.isArray(item.json.labelIds) ? item.json.labelIds : [];\n  const matched = ids.filter((id) => Object.prototype.hasOwnProperty.call(typeLabels, id));\n  if (matched.length !== 1) return [];\n  return [{\n    json: {\n      messageId: item.json.id,\n      from: item.json.from || '',\n      subject: item.json.subject || '',\n      label: typeLabels[matched[0]],\n    },\n  }];\n});"
       },
       "id": "8e11d3f1-facc-468c-94c1-7a76f1cbf358",
       "name": "Build Learned Rule",

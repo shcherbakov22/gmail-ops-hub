@@ -18,6 +18,10 @@ function hasAny(text, keywords) {
   return keywords.some((keyword) => text.includes(keyword));
 }
 
+function domainMatches(senderDomain, ruleDomain) {
+  return senderDomain === ruleDomain || senderDomain.endsWith(`.${ruleDomain}`);
+}
+
 function scoreMatches(scoreboard, reasons, label, points, reason) {
   scoreboard[label] = (scoreboard[label] || 0) + points;
   reasons.push(`${label}: ${reason} (+${points})`);
@@ -49,8 +53,9 @@ function classifyEmail(email) {
   const reasons = [];
 
   for (const [label, domains] of Object.entries(rules.domains)) {
-    if (domains.includes(sender.domain)) {
-      scoreMatches(scoreboard, reasons, label, 5, `sender domain matched ${sender.domain}`);
+    if (domains.some((domain) => domainMatches(sender.domain, domain))) {
+      const points = ['newsletter', 'personal'].includes(label) ? 5 : 7;
+      scoreMatches(scoreboard, reasons, label, points, `sender domain matched ${sender.domain}`);
     }
   }
 

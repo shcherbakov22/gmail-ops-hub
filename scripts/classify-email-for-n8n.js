@@ -7,6 +7,14 @@ const labelIds = {
   invoice: 'Label_5',
   receipt: 'Label_6',
   transaction: 'Label_17',
+  shipping: 'Label_18',
+  shopping: 'Label_19',
+  travel: 'Label_20',
+  support: 'Label_21',
+  education: 'Label_22',
+  job: 'Label_23',
+  social: 'Label_24',
+  subscription: 'Label_25',
   newsletter: 'Label_7',
   'system-alert': 'Label_8',
   'account-security': 'Label_9',
@@ -46,6 +54,10 @@ function hasAny(text, keywords) {
   return keywords.some((keyword) => text.includes(keyword));
 }
 
+function domainMatches(senderDomain, ruleDomain) {
+  return senderDomain === ruleDomain || senderDomain.endsWith(`.${ruleDomain}`);
+}
+
 function score(scoreboard, reasons, label, points, reason) {
   scoreboard[label] = (scoreboard[label] || 0) + points;
   reasons.push(`${label}: ${reason} (+${points})`);
@@ -73,7 +85,8 @@ function classify(email) {
   }
 
   for (const [label, domains] of Object.entries(rules.domains)) {
-    if (domains.includes(sender.domain)) score(scoreboard, reasons, label, 5, `sender domain ${sender.domain}`);
+    const points = ['newsletter', 'personal'].includes(label) ? 5 : 7;
+    if (domains.some((domain) => domainMatches(sender.domain, domain))) score(scoreboard, reasons, label, points, `sender domain ${sender.domain}`);
   }
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
     if (hasAny(subject, keywords)) score(scoreboard, reasons, label, 3, 'subject keyword');

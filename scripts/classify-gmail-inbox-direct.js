@@ -11,7 +11,10 @@ const maxPages = Number(process.env.GMAIL_CLASSIFY_MAX_PAGES || 200);
 const pageSize = Number(process.env.GMAIL_CLASSIFY_PAGE_SIZE || 500);
 const concurrency = Number(process.env.GMAIL_CLASSIFY_CONCURRENCY || 12);
 
-const typeLabelIds = ['Label_5', 'Label_6', 'Label_17', 'Label_7', 'Label_8', 'Label_9', 'Label_10', 'Label_11'];
+const typeLabelIds = [
+  'Label_5', 'Label_6', 'Label_17', 'Label_18', 'Label_19', 'Label_20', 'Label_21', 'Label_22',
+  'Label_23', 'Label_24', 'Label_25', 'Label_7', 'Label_8', 'Label_9', 'Label_10', 'Label_11',
+];
 
 function readCredential() {
   const exported = JSON.parse(fs.readFileSync(credentialPath, 'utf8'));

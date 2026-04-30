@@ -18,7 +18,10 @@
       "name": "Daily 09:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
-      "position": [220, 300]
+      "position": [
+        220,
+        300
+      ]
     },
     {
       "parameters": {
@@ -29,7 +32,7 @@
         "limit": 50,
         "simple": true,
         "filters": {
-          "q": "{label:auto/needs-review label:auto/account-security label:auto/system-alert label:auto/invoice label:auto/transaction} newer_than:1d",
+          "q": "{label:auto/needs-review label:auto/account-security label:auto/system-alert label:auto/invoice label:auto/transaction label:auto/travel label:auto/support label:auto/job} newer_than:1d",
           "readStatus": "both"
         }
       },
@@ -37,7 +40,10 @@
       "name": "Find Digest Mail",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
-      "position": [460, 300],
+      "position": [
+        460,
+        300
+      ],
       "credentials": {
         "gmailOAuth2": {
           "id": "xgApnbffuaaqfFhm",
@@ -53,7 +59,10 @@
       "name": "Build Digest",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [700, 300]
+      "position": [
+        700,
+        300
+      ]
     },
     {
       "parameters": {
@@ -72,7 +81,10 @@
       "name": "Send Digest",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
-      "position": [940, 300],
+      "position": [
+        940,
+        300
+      ],
       "credentials": {
         "gmailOAuth2": {
           "id": "xgApnbffuaaqfFhm",
@@ -83,13 +95,37 @@
   ],
   "connections": {
     "Daily 09:00": {
-      "main": [[{ "node": "Find Digest Mail", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Find Digest Mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Find Digest Mail": {
-      "main": [[{ "node": "Build Digest", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Digest": {
-      "main": [[{ "node": "Send Digest", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Send Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
