@@ -20,6 +20,7 @@ Create these Gmail labels:
 
 - `auto/invoice`
 - `auto/receipt`
+- `auto/transaction`
 - `auto/newsletter`
 - `auto/system-alert`
 - `auto/account-security`
@@ -42,6 +43,10 @@ Create these Gmail labels:
   - mark read
 - `receipt`
   - add `auto/receipt`
+  - add `auto/processed`
+  - keep in inbox
+- `transaction`
+  - add `auto/transaction`
   - add `auto/processed`
   - keep in inbox
 - `invoice`
@@ -88,9 +93,9 @@ Live workflows imported into `n8n`:
   - active
   - every 5 minutes, searches recent Gmail mail without `auto/processed`
   - handles mail received while n8n or the machine was offline/asleep
-- `Gmail Ops Hub - MiniMax Needs Review Fallback`
+- `Gmail Ops Hub - OpenRouter Needs Review Fallback`
   - active
-  - checks `auto/needs-review` every 15 minutes through `claude-minimax-proxy.service`
+  - checks `auto/needs-review` every 15 minutes through OpenRouter `openai/gpt-oss-120b:free`
 - `Gmail Ops Hub - Daily Digest`
   - active
   - sends a daily Gmail summary at 09:00
@@ -119,8 +124,9 @@ Live workflows imported into `n8n`:
 
 - Gmail OAuth credential is configured as `Gmail account`
 - receipts stay in the inbox
+- transaction/payment activity stays in the inbox
 - daily digest is enabled
-- MiniMax fallback is enabled locally
+- OpenRouter fallback is enabled locally
 
 ## Future Tuning
 

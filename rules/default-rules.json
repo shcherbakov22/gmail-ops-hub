@@ -10,6 +10,11 @@
       "star": false,
       "markRead": false
     },
+    "transaction": {
+      "archive": false,
+      "star": false,
+      "markRead": false
+    },
     "newsletter": {
       "archive": true,
       "star": false,
@@ -462,6 +467,19 @@
       "vodafone.pt"
       ,
       "epicgames.com"
+    ],
+    "transaction": [
+      "paypal.com",
+      "mail.paypal.com",
+      "service.paypal.com",
+      "intl.paypal.com",
+      "epl.paypal-communication.com",
+      "paypal-communication.com",
+      "wise.com",
+      "revolut.com",
+      "stripe.com",
+      "cash.app",
+      "venmo.com"
     ]
   },
   "subjectKeywords": {
@@ -520,6 +538,31 @@
       "pedido já está disponível",
       "recebemos o teu produto",
       "details on your shipment"
+    ],
+    "transaction": [
+      "you sent a payment",
+      "you've got money",
+      "you got money",
+      "has sent you money",
+      "sent you money",
+      "received a payment",
+      "authorized a payment",
+      "you have authorized a payment",
+      "instantly available funds",
+      "transaction completed",
+      "transaction details",
+      "refund",
+      "payout",
+      "transfer is on its way",
+      "payment received",
+      "payment sent",
+      "money received",
+      "money sent",
+      "payment method",
+      "card has been charged",
+      "preapproved payment",
+      "automatic payment",
+      "way to pay with paypal is set"
     ],
     "newsletter": [
       "newsletter",
@@ -846,6 +889,24 @@
       "order has been received",
       "payment processed"
     ],
+    "transaction": [
+      "transaction id",
+      "transaction details",
+      "payment received",
+      "payment sent",
+      "money received",
+      "money sent",
+      "funds will be available",
+      "view details of the money you received",
+      "has sent you",
+      "received a payment",
+      "refund complete",
+      "payout",
+      "transfer",
+      "payment method",
+      "automatic payment",
+      "preapproved payment"
+    ],
     "newsletter": [
       "unsubscribe",
       "view in browser",
@@ -890,6 +951,14 @@
       "receipt",
       "order",
       "confirmation"
+    ],
+    "transaction": [
+      "transaction",
+      "payment",
+      "paypal",
+      "transfer",
+      "refund",
+      "payout"
     ]
   },
   "signals": {

@@ -6,6 +6,7 @@ const path = require('node:path');
 const labelIds = {
   invoice: 'Label_5',
   receipt: 'Label_6',
+  transaction: 'Label_17',
   newsletter: 'Label_7',
   'system-alert': 'Label_8',
   'account-security': 'Label_9',

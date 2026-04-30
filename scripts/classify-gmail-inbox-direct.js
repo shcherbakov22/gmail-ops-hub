@@ -11,7 +11,7 @@ const maxPages = Number(process.env.GMAIL_CLASSIFY_MAX_PAGES || 200);
 const pageSize = Number(process.env.GMAIL_CLASSIFY_PAGE_SIZE || 500);
 const concurrency = Number(process.env.GMAIL_CLASSIFY_CONCURRENCY || 12);
 
-const typeLabelIds = ['Label_5', 'Label_6', 'Label_7', 'Label_8', 'Label_9', 'Label_10', 'Label_11'];
+const typeLabelIds = ['Label_5', 'Label_6', 'Label_17', 'Label_7', 'Label_8', 'Label_9', 'Label_10', 'Label_11'];
 
 function readCredential() {
   const exported = JSON.parse(fs.readFileSync(credentialPath, 'utf8'));
@@ -184,11 +184,13 @@ async function main() {
   const credential = readCredential();
   const token = await refreshAccessToken(credential);
   const totals = { seen: 0, modified: 0, byLabel: {} };
+  let pageToken = '';
 
   for (let page = 1; page <= maxPages; page += 1) {
     const listUrl = new URL('https://gmail.googleapis.com/gmail/v1/users/me/messages');
     listUrl.searchParams.set('q', query);
     listUrl.searchParams.set('maxResults', String(pageSize));
+    if (pageToken) listUrl.searchParams.set('pageToken', pageToken);
     const listed = await withRetry(() => requestJson('GET', listUrl, { token }));
     const ids = (listed.messages || []).map((message) => message.id);
     if (ids.length === 0) {
@@ -235,7 +237,8 @@ async function main() {
     }
 
     console.log(`page=${page} fetched=${ids.length} modified=${totals.modified} counts=${JSON.stringify(totals.byLabel)}`);
-    if (ids.length < pageSize) break;
+    pageToken = listed.nextPageToken || '';
+    if (!pageToken) break;
   }
 
   console.log(`complete seen=${totals.seen} modified=${totals.modified} counts=${JSON.stringify(totals.byLabel)}`);

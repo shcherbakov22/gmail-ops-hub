@@ -6,7 +6,7 @@ const path = require('node:path');
 const rulesDir = '/var/lib/n8n/gmail-rules';
 const rulesPath = path.join(rulesDir, 'learned-rules.json');
 const historyPath = path.join(rulesDir, 'learned-rules.jsonl');
-const validLabels = new Set(['invoice', 'receipt', 'newsletter', 'system-alert', 'account-security', 'personal']);
+const validLabels = new Set(['invoice', 'receipt', 'transaction', 'newsletter', 'system-alert', 'account-security', 'personal']);
 
 function normalizeSender(from) {
   const raw = String(from || '').trim();

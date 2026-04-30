@@ -29,7 +29,7 @@
         "limit": 50,
         "simple": true,
         "filters": {
-          "q": "{label:auto/needs-review label:auto/account-security label:auto/system-alert label:auto/invoice} newer_than:1d",
+          "q": "{label:auto/needs-review label:auto/account-security label:auto/system-alert label:auto/invoice label:auto/transaction} newer_than:1d",
           "readStatus": "both"
         }
       },
