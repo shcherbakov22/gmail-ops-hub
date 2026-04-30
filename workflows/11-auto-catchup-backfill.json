@@ -1,0 +1,215 @@
+{
+  "name": "Gmail Ops Hub - Auto Catch-Up Backfill",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "gmail-ops-auto-catchup-trigger",
+      "name": "Every 5 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        180,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 100,
+        "simple": false,
+        "filters": {
+          "q": "-label:auto/processed -in:spam -in:trash newer_than:30d",
+          "readStatus": "both"
+        },
+        "options": {
+          "downloadAttachments": false
+        }
+      },
+      "id": "gmail-ops-auto-catchup-find-unprocessed",
+      "name": "Find Unprocessed Mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/classify",
+        "authentication": "none",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "neverError": false
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "gmail-ops-auto-catchup-classify",
+      "name": "Classify Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        660,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToAdd }}"
+      },
+      "id": "gmail-ops-auto-catchup-add-labels",
+      "name": "Add Type Labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        920,
+        220
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "removeLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToRemove }}"
+      },
+      "id": "gmail-ops-auto-catchup-archive-or-mark-read",
+      "name": "Archive Or Mark Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        920,
+        420
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.filter((item) => Array.isArray(item.json.labelsToRemove) && item.json.labelsToRemove.length > 0);"
+      },
+      "id": "only-removable-labels-11-auto-catchup-backfill",
+      "name": "Only Removable Labels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Every 5 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Find Unprocessed Mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Unprocessed Mail": {
+      "main": [
+        [
+          {
+            "node": "Classify Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Email": {
+      "main": [
+        [
+          {
+            "node": "Add Type Labels",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Only Removable Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only Removable Labels": {
+      "main": [
+        [
+          {
+            "node": "Archive Or Mark Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "gmail-ops-failure-alerts"
+  },
+  "versionId": "6a43a8ac-26a2-43c0-bb15-691a992ab83a",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "gmail-ops-auto-catchup-backfill"
+}

@@ -1,0 +1,119 @@
+{
+  "name": "TMP Gmail Ops Inbox Classification Scan",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "tmp-inbox-scan-trigger",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        180,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 200,
+        "simple": false,
+        "filters": {
+          "q": "in:inbox -in:spam -in:trash newer_than:90d",
+          "readStatus": "both"
+        },
+        "options": {
+          "downloadAttachments": false
+        }
+      },
+      "id": "tmp-inbox-scan-find",
+      "name": "Find Inbox Mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/classify",
+        "authentication": "none",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "neverError": false
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "tmp-inbox-scan-classify",
+      "name": "Classify Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        680,
+        320
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Find Inbox Mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Inbox Mail": {
+      "main": [
+        [
+          {
+            "node": "Classify Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7448167e-94f6-42d3-b9e9-d7899a779dc0",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "tmp-gmail-ops-inbox-classification-scan"
+}

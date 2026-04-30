@@ -1,0 +1,32 @@
+{
+  "name": "TMP Test FS",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "55974803-22d4-46bb-a95d-7a26bde26b60",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('node:fs');\nreturn [{ json: { ok: fs.existsSync('/etc/hosts') } }];"
+      },
+      "id": "e56d1ee6-6ffc-44d8-a8db-01cb96475d48",
+      "name": "Read FS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Read FS", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "d5c9202e-e9d7-49d1-9abe-1588a2d7f844",
+  "id": "tmp-test-fs"
+}

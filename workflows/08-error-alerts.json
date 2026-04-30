@@ -1,0 +1,63 @@
+{
+  "name": "Gmail Ops Hub - Failure Alerts",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "29647ec0-3b7d-4d4e-b8f6-37e86e4c5ee2",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\nconst workflow = data.workflow || {};\nconst execution = data.execution || {};\nconst error = execution.error || {};\nconst subject = `n8n failure: ${workflow.name || workflow.id || 'unknown workflow'}`;\nconst lines = [\n  'An n8n workflow failed.',\n  '',\n  `Workflow: ${workflow.name || '(unknown)'}`,\n  `Workflow ID: ${workflow.id || '(unknown)'}`,\n  `Execution ID: ${execution.id || '(unknown)'}`,\n  `Mode: ${execution.mode || '(unknown)'}`,\n  `Last node: ${execution.lastNodeExecuted || '(unknown)'}`,\n  `Error: ${error.message || '(no message)'}`,\n];\nif (execution.url) lines.push(`Execution URL: ${execution.url}`);\nif (error.stack) {\n  lines.push('', 'Stack:', String(error.stack).slice(0, 3000));\n}\nreturn [{ json: { subject, body: lines.join('\\n') } }];"
+      },
+      "id": "1e2d0aca-cbe1-4b9c-a6e0-f6b845d8d30d",
+      "name": "Build Failure Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "serbakove400@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "402e9e90-7ec4-4380-bb39-2cb6e68f6a2f",
+      "name": "Send Failure Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [760, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [[{ "node": "Build Failure Email", "type": "main", "index": 0 }]]
+    },
+    "Build Failure Email": {
+      "main": [[{ "node": "Send Failure Alert", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "d534bdde-12e8-47d9-ae87-9db194adcd0d",
+  "id": "gmail-ops-failure-alerts"
+}

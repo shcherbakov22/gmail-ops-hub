@@ -1,0 +1,113 @@
+{
+  "name": "Gmail Ops Hub - Save Invoice Receipt Attachments",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1,
+              "triggerAtMinute": 5
+            }
+          ]
+        }
+      },
+      "id": "61339e06-8f2d-4ea3-b9f2-168982e11160",
+      "name": "Hourly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [180, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 20,
+        "simple": false,
+        "filters": {
+          "q": "{label:auto/invoice label:auto/receipt} has:attachment -label:auto/attachment-saved newer_than:30d",
+          "readStatus": "both"
+        },
+        "options": {
+          "dataPropertyAttachmentsPrefixName": "attachment_",
+          "downloadAttachments": true
+        }
+      },
+      "id": "5ba9e195-6b28-4245-af9b-a4becc8dabbe",
+      "name": "Find Attachment Mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [420, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const output = [];\nfor (const item of $input.all()) {\n  const binary = item.binary || {};\n  for (const [key, value] of Object.entries(binary)) {\n    if (!key.startsWith('attachment_')) continue;\n    output.push({\n      json: {\n        ...item.json,\n        attachmentKey: key,\n        attachmentFileName: value.fileName || 'attachment',\n      },\n      binary: {\n        data: value,\n      },\n    });\n  }\n}\nreturn output;"
+      },
+      "id": "d1bb2b65-4ff3-475f-b9ff-31e44eae0f53",
+      "name": "One Item Per Attachment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "={{ '/var/lib/n8n/gmail-attachments/' + $json.id + '-' + $json.attachmentKey + '-' + (($json.attachmentFileName || 'attachment').replace(/[^a-zA-Z0-9._-]+/g, '_')).slice(0, 120) }}",
+        "dataPropertyName": "data"
+      },
+      "id": "e3d0d9fe-1482-4650-83fb-695c20fd5f58",
+      "name": "Save Attachment",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": ["Label_14"]
+      },
+      "id": "5cb940af-bf34-4c6d-bb75-8b71192d8374",
+      "name": "Mark Attachment Saved",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1140, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Hourly": {
+      "main": [[{ "node": "Find Attachment Mail", "type": "main", "index": 0 }]]
+    },
+    "Find Attachment Mail": {
+      "main": [[{ "node": "One Item Per Attachment", "type": "main", "index": 0 }]]
+    },
+    "One Item Per Attachment": {
+      "main": [[{ "node": "Save Attachment", "type": "main", "index": 0 }]]
+    },
+    "Save Attachment": {
+      "main": [[{ "node": "Mark Attachment Saved", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8d67ce20-daba-48cf-9385-7356b84497a9",
+  "id": "gmail-ops-save-attachments"
+}

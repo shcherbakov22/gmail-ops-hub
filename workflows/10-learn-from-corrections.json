@@ -1,0 +1,236 @@
+{
+  "name": "Gmail Ops Hub - Learn From Corrections",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "id": "b8ed4c8f-436e-48a5-9803-ee13d130ff6e",
+      "name": "Every 30 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        180,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 25,
+        "simple": false,
+        "filters": {
+          "q": "label:auto/learn -label:auto/rule-learned newer_than:30d",
+          "readStatus": "both"
+        }
+      },
+      "id": "fcf5b7e8-e0e8-4fb0-a441-0cd00ae1f9cc",
+      "name": "Find Learn Requests",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const typeLabels = {\n  Label_5: 'invoice',\n  Label_6: 'receipt',\n  Label_7: 'newsletter',\n  Label_8: 'system-alert',\n  Label_9: 'account-security',\n  Label_10: 'personal',\n};\n\nreturn $input.all().flatMap((item) => {\n  const ids = Array.isArray(item.json.labelIds) ? item.json.labelIds : [];\n  const matched = ids.filter((id) => Object.prototype.hasOwnProperty.call(typeLabels, id));\n  if (matched.length !== 1) return [];\n  return [{\n    json: {\n      messageId: item.json.id,\n      from: item.json.from || '',\n      subject: item.json.subject || '',\n      label: typeLabels[matched[0]],\n    },\n  }];\n});"
+      },
+      "id": "8e11d3f1-facc-468c-94c1-7a76f1cbf358",
+      "name": "Build Learned Rule",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/learn",
+        "authentication": "none",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "neverError": false
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "f66d7f6c-f3ed-447c-899c-28617761d8c7",
+      "name": "Record Learned Rule",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        900,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item) => ({\n  json: {\n    messageId: item.json.messageId,\n    learnedEvent: item.json,\n  },\n}));"
+      },
+      "id": "47ee6469-2a7a-4ab5-8ed8-0862ee06e452",
+      "name": "Parse Learned Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "addLabels",
+        "messageId": "={{ $json.messageId }}",
+        "labelIds": [
+          "Label_16"
+        ]
+      },
+      "id": "9d39c64b-4684-454b-82f8-8b83dcd99472",
+      "name": "Mark Rule Learned",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        240
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "removeLabels",
+        "messageId": "={{ $json.messageId }}",
+        "labelIds": [
+          "Label_15"
+        ]
+      },
+      "id": "371f8b8d-cdbc-468a-8ab4-62707a6a52dd",
+      "name": "Remove Learn Request",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        420
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 30 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Find Learn Requests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Learn Requests": {
+      "main": [
+        [
+          {
+            "node": "Build Learned Rule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Learned Rule": {
+      "main": [
+        [
+          {
+            "node": "Record Learned Rule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Learned Rule": {
+      "main": [
+        [
+          {
+            "node": "Parse Learned Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Learned Event": {
+      "main": [
+        [
+          {
+            "node": "Mark Rule Learned",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Remove Learn Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "gmail-ops-failure-alerts"
+  },
+  "versionId": "67e94ae7-bfb5-4338-88f2-8a8db519e1bc",
+  "id": "gmail-ops-learn-from-corrections"
+}

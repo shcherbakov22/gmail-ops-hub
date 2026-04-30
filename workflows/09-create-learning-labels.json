@@ -1,0 +1,58 @@
+{
+  "name": "Gmail Ops Hub - Create Learning Labels",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a3894c8e-bccb-43b4-913c-2f2bf59b6f02",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return ['auto/learn', 'auto/rule-learned'].map((name) => ({ json: { name } }));"
+      },
+      "id": "15e9ab1d-7bc0-49e1-ad26-4261be5d83d9",
+      "name": "Learning Label Names",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "label",
+        "operation": "create",
+        "name": "={{ $json.name }}",
+        "options": {
+          "labelListVisibility": "labelShow",
+          "messageListVisibility": "show"
+        }
+      },
+      "id": "7752ad77-7224-4c70-b47e-2f09b253f51a",
+      "name": "Create Learning Labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [700, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Learning Label Names", "type": "main", "index": 0 }]]
+    },
+    "Learning Label Names": {
+      "main": [[{ "node": "Create Learning Labels", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "144501a8-d84b-41f8-95d0-d569e2861547",
+  "id": "gmail-ops-create-learning-labels"
+}

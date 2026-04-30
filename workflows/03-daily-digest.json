@@ -1,0 +1,101 @@
+{
+  "name": "Gmail Ops Hub - Daily Digest",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "1ff7d13d-9d57-4dab-b667-94bde7dd7b0e",
+      "name": "Daily 09:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 50,
+        "simple": true,
+        "filters": {
+          "q": "{label:auto/needs-review label:auto/account-security label:auto/system-alert label:auto/invoice} newer_than:1d",
+          "readStatus": "both"
+        }
+      },
+      "id": "3478273c-fae3-44fd-b4e4-67f7232aee09",
+      "name": "Find Digest Mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [460, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map((item) => item.json);\nconst today = new Date().toISOString().slice(0, 10);\nconst lines = [`Gmail ops digest for ${today}`, ''];\nif (!items.length) {\n  lines.push('No important classified mail in the last day.');\n} else {\n  for (const [index, mail] of items.entries()) {\n    const subject = mail.subject || '(no subject)';\n    const from = mail.from || '(unknown sender)';\n    const snippet = mail.snippet || '';\n    lines.push(`${index + 1}. ${subject}`);\n    lines.push(`From: ${from}`);\n    if (snippet) lines.push(`Snippet: ${snippet}`);\n    lines.push('');\n  }\n}\nreturn [{ json: { subject: `Gmail ops digest - ${today}`, body: lines.join('\\n') } }];"
+      },
+      "id": "5311a18c-1259-4fbc-8f5a-9091b36edebb",
+      "name": "Build Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "serbakove400@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "23fc048b-f3da-4e5f-96b7-a16885c09587",
+      "name": "Send Digest",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [940, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily 09:00": {
+      "main": [[{ "node": "Find Digest Mail", "type": "main", "index": 0 }]]
+    },
+    "Find Digest Mail": {
+      "main": [[{ "node": "Build Digest", "type": "main", "index": 0 }]]
+    },
+    "Build Digest": {
+      "main": [[{ "node": "Send Digest", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9b4f9dfa-c550-432e-b56b-8a1bf291b7b0",
+  "id": "gmail-ops-daily-digest"
+}

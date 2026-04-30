@@ -1,0 +1,61 @@
+{
+  "name": "Gmail Ops Hub - Create Error Label",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d14ac252-3545-470f-8eec-24df961236bb",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "label",
+        "operation": "create",
+        "name": "auto/error",
+        "options": {
+          "labelListVisibility": "labelShow",
+          "messageListVisibility": "show"
+        }
+      },
+      "id": "c2289169-e879-47be-a00f-aa26686e85f3",
+      "name": "Create Error Label",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Error Label",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9dc98690-20b6-4b70-b2fe-9890ad13f4c5",
+  "id": "gmail-ops-create-error-label"
+}

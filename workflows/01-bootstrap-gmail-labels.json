@@ -1,0 +1,89 @@
+{
+  "name": "Gmail Ops Hub - Bootstrap Labels",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a37550c2-e21a-4a31-94f5-8aebf357411f",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  'auto/invoice',\n  'auto/receipt',\n  'auto/newsletter',\n  'auto/system-alert',\n  'auto/account-security',\n  'auto/personal',\n  'auto/needs-review',\n  'auto/processed',\n].map((name) => ({ json: { name } }));"
+      },
+      "id": "d8fcb77d-65aa-4248-b680-726ba2a7553b",
+      "name": "Label Names",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "label",
+        "operation": "create",
+        "name": "={{ $json.name }}",
+        "options": {
+          "labelListVisibility": "labelShow",
+          "messageListVisibility": "show"
+        }
+      },
+      "id": "2d58b8b6-10c4-4790-b791-11fa5780144f",
+      "name": "Create Gmail Labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Label Names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Label Names": {
+      "main": [
+        [
+          {
+            "node": "Create Gmail Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "592554be-5d8e-4f85-8b79-0d0f2a1ccfbd",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "gmail-ops-bootstrap-labels"
+}

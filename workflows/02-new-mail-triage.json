@@ -1,0 +1,179 @@
+{
+  "name": "Gmail Ops Hub - New Mail Triage",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "simple": false,
+        "filters": {
+          "q": "-label:auto/processed -in:spam -in:trash newer_than:7d",
+          "readStatus": "both"
+        },
+        "options": {
+          "downloadAttachments": false
+        }
+      },
+      "id": "6d39c164-c00c-48b8-8327-60fe7a60454d",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        220,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToAdd }}"
+      },
+      "id": "4c9f83b9-9427-4eb8-9a52-1cd9897dc965",
+      "name": "Add Type Labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        220
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "removeLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToRemove }}"
+      },
+      "id": "bbda1217-56fb-4d21-85a9-4a22a8e5b696",
+      "name": "Archive Or Mark Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        420
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/classify",
+        "authentication": "none",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "neverError": false
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "http-classify-gmail-ops-new-mail-triage",
+      "name": "Classify Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        480,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.filter((item) => Array.isArray(item.json.labelsToRemove) && item.json.labelsToRemove.length > 0);"
+      },
+      "id": "only-removable-labels-02-new-mail-triage",
+      "name": "Only Removable Labels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Classify Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Email": {
+      "main": [
+        [
+          {
+            "node": "Add Type Labels",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Only Removable Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only Removable Labels": {
+      "main": [
+        [
+          {
+            "node": "Archive Or Mark Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "00fb1824-2bd0-488a-a131-65fe91d9d422",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "gmail-ops-new-mail-triage"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "TMP Test Fetch",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "56d2eaaf-2a68-4559-b295-30d4f976ecff",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = await fetch('http://127.0.0.1:4002/health');\nconst body = await response.json();\nreturn [{ json: body }];"
+      },
+      "id": "b5bfd730-4256-4586-9b40-19c165ab8b37",
+      "name": "Fetch Health",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4817bf29-e21b-4f22-9938-f0a17957fb2d",
+  "id": "tmp-test-fetch"
+}

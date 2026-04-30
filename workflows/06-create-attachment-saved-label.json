@@ -1,0 +1,47 @@
+{
+  "name": "Gmail Ops Hub - Create Attachment Saved Label",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3adbb59d-93a7-43c0-8e27-d7ad3b5f8123",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "label",
+        "operation": "create",
+        "name": "auto/attachment-saved",
+        "options": {
+          "labelListVisibility": "labelShow",
+          "messageListVisibility": "show"
+        }
+      },
+      "id": "d5966d1c-ac71-4232-aea0-8fcbfb13656d",
+      "name": "Create Attachment Saved Label",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [520, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Create Attachment Saved Label", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8d792a8e-44b4-4d81-bc41-8e88b32f8f42",
+  "id": "gmail-ops-create-attachment-saved-label"
+}

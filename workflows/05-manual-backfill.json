@@ -1,0 +1,205 @@
+{
+  "name": "Gmail Ops Hub - Manual Backfill",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "087ed56e-3621-4fd2-9400-54c3cf2da1b4",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        180,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 100,
+        "simple": false,
+        "filters": {
+          "q": "-label:auto/processed -in:spam -in:trash newer_than:30d",
+          "readStatus": "both"
+        },
+        "options": {
+          "downloadAttachments": false
+        }
+      },
+      "id": "8a32809e-af9f-4b12-840d-d54471722fb4",
+      "name": "Find Unprocessed Mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToAdd }}"
+      },
+      "id": "4c9f83b9-9427-4eb8-9a52-1cd9897dc965",
+      "name": "Add Type Labels",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        220
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "removeLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": "={{ $json.labelsToRemove }}"
+      },
+      "id": "bbda1217-56fb-4d21-85a9-4a22a8e5b696",
+      "name": "Archive Or Mark Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1380,
+        420
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xgApnbffuaaqfFhm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4010/classify",
+        "authentication": "none",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "neverError": false
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "http-classify-gmail-ops-manual-backfill",
+      "name": "Classify Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        660,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.filter((item) => Array.isArray(item.json.labelsToRemove) && item.json.labelsToRemove.length > 0);"
+      },
+      "id": "only-removable-labels-05-manual-backfill",
+      "name": "Only Removable Labels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Find Unprocessed Mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Unprocessed Mail": {
+      "main": [
+        [
+          {
+            "node": "Classify Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Email": {
+      "main": [
+        [
+          {
+            "node": "Add Type Labels",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Only Removable Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only Removable Labels": {
+      "main": [
+        [
+          {
+            "node": "Archive Or Mark Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c1cbe41e-d349-4145-af08-4f5597289319",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "gmail-ops-manual-backfill"
+}
