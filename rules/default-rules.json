@@ -474,7 +474,8 @@
       "klm-info.com",
       "sabitinternet.turktelekom.com.tr",
       "vodafone.pt",
-      "epicgames.com"
+      "epicgames.com",
+      "info.wallapop.com"
     ],
     "transaction": [
       "paypal.com",
@@ -925,7 +926,9 @@
       "steam purchase",
       "thank you for your steam purchase",
       "your purchase",
-      "purchase confirmation"
+      "purchase confirmation",
+      "thank you for your gift purchase",
+      "fatura de pagamento"
     ],
     "transaction": [
       "you sent a payment",
@@ -1172,7 +1175,18 @@
       "unrecognised device",
       "signed in to your",
       "new device signed in",
-      "password recovery"
+      "password recovery",
+      "novo início de sessão",
+      "access from new computer",
+      "your steam account: access",
+      "new applications connected",
+      "новый вход",
+      "обнаружен новый вход",
+      "подключены новые приложения",
+      "учетной записи майкрософт",
+      "учётной записи майкрософт",
+      "device is now connected",
+      "connected to your remarkable account"
     ],
     "personal": [
       "re:",
@@ -1247,7 +1261,9 @@
       "foi entregue",
       "levantar a encomenda",
       "current status of the shipment",
-      "details on your shipment"
+      "details on your shipment",
+      "estado da sua encomenda",
+      "shipping: your purchase"
     ],
     "shopping": [
       "your order",
@@ -1510,7 +1526,6 @@
       "está a chegar",
       "já chegou",
       "transaction details",
-      "transaction id",
       "order summary",
       "tracking number",
       "funds will be available",
@@ -1530,7 +1545,11 @@
       "order has been received",
       "payment processed",
       "steam purchase",
-      "thank you for your steam purchase"
+      "thank you for your steam purchase",
+      "thank you for your gift purchase",
+      "fatura de pagamento",
+      "fizeste uma compra",
+      "you have made a purchase"
     ],
     "transaction": [
       "transaction id",
