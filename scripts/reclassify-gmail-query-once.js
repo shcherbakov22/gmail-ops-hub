@@ -12,6 +12,7 @@ const concurrency = Number(process.env.GMAIL_RECLASSIFY_CONCURRENCY || 12);
 const typeLabelIds = [
   'Label_5', 'Label_6', 'Label_17', 'Label_18', 'Label_19', 'Label_20', 'Label_21', 'Label_22',
   'Label_23', 'Label_24', 'Label_25', 'Label_7', 'Label_8', 'Label_9', 'Label_10', 'Label_11',
+  'Label_26', 'Label_27', 'Label_28', 'Label_29', 'Label_30',
 ];
 
 function readCredential() {

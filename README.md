@@ -29,6 +29,11 @@ Create these Gmail labels:
 - `auto/job`
 - `auto/social`
 - `auto/subscription`
+- `auto/cloud-dev`
+- `auto/gaming`
+- `auto/promotions`
+- `auto/finance`
+- `auto/community`
 - `auto/newsletter`
 - `auto/system-alert`
 - `auto/account-security`
@@ -93,6 +98,30 @@ Create these Gmail labels:
   - add `auto/subscription`
   - add `auto/processed`
   - keep in inbox
+- `cloud-dev`
+  - add `auto/cloud-dev`
+  - add `auto/processed`
+  - keep in inbox
+- `gaming`
+  - add `auto/gaming`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `promotions`
+  - add `auto/promotions`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `finance`
+  - add `auto/finance`
+  - add `auto/processed`
+  - keep in inbox
+  - star
+- `community`
+  - add `auto/community`
+  - add `auto/processed`
+  - archive
+  - mark read
 - `invoice`
   - add `auto/invoice`
   - add `auto/processed`

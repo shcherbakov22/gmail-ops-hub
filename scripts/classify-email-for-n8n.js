@@ -15,6 +15,11 @@ const labelIds = {
   job: 'Label_23',
   social: 'Label_24',
   subscription: 'Label_25',
+  'cloud-dev': 'Label_26',
+  gaming: 'Label_27',
+  promotions: 'Label_28',
+  finance: 'Label_29',
+  community: 'Label_30',
   newsletter: 'Label_7',
   'system-alert': 'Label_8',
   'account-security': 'Label_9',
@@ -85,14 +90,14 @@ function classify(email) {
   }
 
   for (const [label, domains] of Object.entries(rules.domains)) {
-    const points = ['newsletter', 'personal'].includes(label) ? 5 : 7;
+    const points = label === 'account-security' ? 2 : (['newsletter', 'personal'].includes(label) ? 5 : 9);
     if (domains.some((domain) => domainMatches(sender.domain, domain))) score(scoreboard, reasons, label, points, `sender domain ${sender.domain}`);
   }
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
-    if (hasAny(subject, keywords)) score(scoreboard, reasons, label, 3, 'subject keyword');
+    if (hasAny(subject, keywords)) score(scoreboard, reasons, label, label === 'account-security' ? 9 : 3, 'subject keyword');
   }
   for (const [label, keywords] of Object.entries(rules.bodyKeywords)) {
-    if (hasAny(body, keywords)) score(scoreboard, reasons, label, 2, 'body keyword');
+    if (hasAny(body, keywords)) score(scoreboard, reasons, label, label === 'account-security' ? 5 : 2, 'body keyword');
   }
   for (const [label, keywords] of Object.entries(rules.attachmentNameKeywords)) {
     if (attachmentNames.some((name) => hasAny(name, keywords))) score(scoreboard, reasons, label, 2, 'attachment filename');

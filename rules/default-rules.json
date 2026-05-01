@@ -79,6 +79,31 @@
       "archive": false,
       "star": false,
       "markRead": false
+    },
+    "cloud-dev": {
+      "archive": false,
+      "star": false,
+      "markRead": false
+    },
+    "gaming": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "promotions": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "finance": {
+      "archive": false,
+      "star": true,
+      "markRead": false
+    },
+    "community": {
+      "archive": true,
+      "star": false,
+      "markRead": true
     }
   },
   "domains": {
@@ -579,6 +604,124 @@
       "paysafecard.com",
       "mail.nintendo-europe.com",
       "engage.xbox.com"
+    ],
+    "cloud-dev": [
+      "github.com",
+      "githubsupport.com",
+      "digitalocean.com",
+      "cloudflare.com",
+      "render.com",
+      "netlify.com",
+      "ngrok.com",
+      "ngrok-info.com",
+      "openrouter.ai",
+      "n8n.io",
+      "tailscale.com",
+      "webdock.io",
+      "noip.com",
+      "fastly.com",
+      "browserstack.com",
+      "gitkraken.com",
+      "sourceforge.net",
+      "glitch.com",
+      "vercel.com",
+      "supabase.com",
+      "railway.app",
+      "fly.io",
+      "docker.com",
+      "npmjs.com"
+    ],
+    "gaming": [
+      "gog.com",
+      "email.gog.com",
+      "email2.gog.com",
+      "email3.gog.com",
+      "epicgames.com",
+      "email.epicgames.com",
+      "ubisoft.com",
+      "updates.ubisoft.com",
+      "rockstargames.com",
+      "newsletter.rockstargames.com",
+      "ea.com",
+      "e.ea.com",
+      "fanatical.com",
+      "email.fanatical.com",
+      "immail.fanatical.com",
+      "bandainamcoent.eu",
+      "kongregate.com",
+      "gamejolt.com",
+      "minecraft-mp.com",
+      "minecraftservers.org",
+      "minecraft-server-list.com",
+      "hypixel.net",
+      "spigotmc.org",
+      "atlauncher.com",
+      "meteorclient.com",
+      "guide4csgo.com",
+      "airconsole.com",
+      "legacygames.com"
+    ],
+    "promotions": [
+      "aliexpress.com",
+      "deals.aliexpress.com",
+      "selections.aliexpress.com",
+      "newarrival.aliexpress.com",
+      "decathlon.com",
+      "email.decathlon.com",
+      "feedback.decathlon.com",
+      "news.decathlon.com",
+      "dell.com",
+      "americas.comm.dell.com",
+      "shenzhenaudio.com",
+      "send.shenzhenaudio.com",
+      "linsoul.com",
+      "tripowin.com",
+      "redmagic.gg",
+      "keychron.com",
+      "stickermule.com",
+      "kuantokusta.pt",
+      "miravia.es",
+      "service.miravia.es",
+      "kobo.com",
+      "shop.kobo.com",
+      "ebay.com",
+      "info.ebay.com",
+      "indiegogo.com"
+    ],
+    "finance": [
+      "paypal.com",
+      "mail.paypal.com",
+      "service.paypal.com",
+      "intl.paypal.com",
+      "paypal-communication.com",
+      "epl.paypal-communication.com",
+      "paysafecard.com",
+      "mailer.paysafecard.com",
+      "blockchain.com",
+      "email.blockchain.com",
+      "bitnovo.com",
+      "mail.bitnovo.com",
+      "wise.com",
+      "revolut.com",
+      "stripe.com"
+    ],
+    "community": [
+      "facebookmail.com",
+      "facebook.com",
+      "reddit.com",
+      "discord.com",
+      "trustpilot.com",
+      "trustpilotmail.com",
+      "change.org",
+      "a.change.org",
+      "4pda.to",
+      "xda-developers.com",
+      "mailbox.xda-developers.com",
+      "elitepvpers.com",
+      "cohost.org",
+      "no-reply.cohost.org",
+      "geocaching.com",
+      "email.geocaching.com"
     ]
   },
   "subjectKeywords": {
@@ -1053,6 +1196,59 @@
       "payment method",
       "card has been charged",
       "monthly statement"
+    ],
+    "cloud-dev": [
+      "deployment",
+      "deploy failed",
+      "build failed",
+      "incident",
+      "api key",
+      "repository",
+      "pull request",
+      "workflow run",
+      "usage alert",
+      "quota alert"
+    ],
+    "gaming": [
+      "wishlist",
+      "game sale",
+      "free game",
+      "launcher",
+      "steam key",
+      "your game",
+      "new game",
+      "patch notes"
+    ],
+    "promotions": [
+      "sale",
+      "discount",
+      "deal",
+      "coupon",
+      "promo",
+      "clearance",
+      "new arrival",
+      "black friday",
+      "limited offer"
+    ],
+    "finance": [
+      "statement",
+      "balance",
+      "payment received",
+      "payment sent",
+      "payout",
+      "withdrawal",
+      "deposit",
+      "card transaction",
+      "paypal"
+    ],
+    "community": [
+      "mentioned you",
+      "commented on",
+      "new reply",
+      "group post",
+      "forum reply",
+      "friend request",
+      "review request"
     ]
   },
   "bodyKeywords": {
@@ -1233,6 +1429,49 @@
       "billing cycle",
       "payment method",
       "recurring payment"
+    ],
+    "cloud-dev": [
+      "deployment failed",
+      "build failed",
+      "your repository",
+      "api usage",
+      "quota exceeded",
+      "incident report",
+      "service status",
+      "new sign-in to github"
+    ],
+    "gaming": [
+      "claim your free game",
+      "wishlist item",
+      "game library",
+      "game launcher",
+      "in-game",
+      "patch notes"
+    ],
+    "promotions": [
+      "unsubscribe from these emails",
+      "use code",
+      "promo code",
+      "limited time offer",
+      "save up to",
+      "shop now"
+    ],
+    "finance": [
+      "paypal balance",
+      "transaction id",
+      "payment method",
+      "bank account",
+      "card ending",
+      "exchange rate",
+      "crypto",
+      "payout"
+    ],
+    "community": [
+      "posted in",
+      "commented on your",
+      "replied to your",
+      "community update",
+      "notification settings"
     ]
   },
   "attachmentNameKeywords": {
@@ -1291,6 +1530,17 @@
     "subscription": [
       "subscription",
       "membership"
+    ],
+    "finance": [
+      "statement",
+      "transaction",
+      "payout",
+      "payment"
+    ],
+    "cloud-dev": [
+      "report",
+      "usage",
+      "invoice-cloud"
     ]
   },
   "signals": {

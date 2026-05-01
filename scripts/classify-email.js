@@ -54,20 +54,20 @@ function classifyEmail(email) {
 
   for (const [label, domains] of Object.entries(rules.domains)) {
     if (domains.some((domain) => domainMatches(sender.domain, domain))) {
-      const points = ['newsletter', 'personal'].includes(label) ? 5 : 7;
+      const points = label === 'account-security' ? 2 : (['newsletter', 'personal'].includes(label) ? 5 : 9);
       scoreMatches(scoreboard, reasons, label, points, `sender domain matched ${sender.domain}`);
     }
   }
 
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
     if (hasAny(subject, keywords)) {
-      scoreMatches(scoreboard, reasons, label, 3, 'subject keyword match');
+      scoreMatches(scoreboard, reasons, label, label === 'account-security' ? 9 : 3, 'subject keyword match');
     }
   }
 
   for (const [label, keywords] of Object.entries(rules.bodyKeywords)) {
     if (hasAny(body, keywords)) {
-      scoreMatches(scoreboard, reasons, label, 2, 'body keyword match');
+      scoreMatches(scoreboard, reasons, label, label === 'account-security' ? 5 : 2, 'body keyword match');
     }
   }
 
