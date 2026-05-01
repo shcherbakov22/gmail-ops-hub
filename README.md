@@ -34,6 +34,13 @@ Create these Gmail labels:
 - `auto/promotions`
 - `auto/finance`
 - `auto/community`
+- `auto/ai-tools`
+- `auto/media`
+- `auto/food-rides`
+- `auto/surveys-rewards`
+- `auto/domains-hosting`
+- `auto/forums`
+- `auto/google-services`
 - `auto/newsletter`
 - `auto/system-alert`
 - `auto/account-security`
@@ -122,6 +129,38 @@ Create these Gmail labels:
   - add `auto/processed`
   - archive
   - mark read
+- `ai-tools`
+  - add `auto/ai-tools`
+  - add `auto/processed`
+  - keep in inbox
+- `media`
+  - add `auto/media`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `food-rides`
+  - add `auto/food-rides`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `surveys-rewards`
+  - add `auto/surveys-rewards`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `domains-hosting`
+  - add `auto/domains-hosting`
+  - add `auto/processed`
+  - keep in inbox
+- `forums`
+  - add `auto/forums`
+  - add `auto/processed`
+  - archive
+  - mark read
+- `google-services`
+  - add `auto/google-services`
+  - add `auto/processed`
+  - keep in inbox
 - `invoice`
   - add `auto/invoice`
   - add `auto/processed`

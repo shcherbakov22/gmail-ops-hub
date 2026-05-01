@@ -14,7 +14,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [\n  'auto/invoice',\n  'auto/receipt',\n  'auto/transaction',\n  'auto/shipping',\n  'auto/shopping',\n  'auto/travel',\n  'auto/support',\n  'auto/education',\n  'auto/job',\n  'auto/social',\n  'auto/subscription',\n  'auto/cloud-dev',\n  'auto/gaming',\n  'auto/promotions',\n  'auto/finance',\n  'auto/community',\n  'auto/newsletter',\n  'auto/system-alert',\n  'auto/account-security',\n  'auto/personal',\n  'auto/needs-review',\n  'auto/processed',\n].map((name) => ({ json: { name } }));"
+        "jsCode": "return [\n  'auto/invoice',\n  'auto/receipt',\n  'auto/transaction',\n  'auto/shipping',\n  'auto/shopping',\n  'auto/travel',\n  'auto/support',\n  'auto/education',\n  'auto/job',\n  'auto/social',\n  'auto/subscription',\n  'auto/cloud-dev',\n  'auto/gaming',\n  'auto/promotions',\n  'auto/finance',\n  'auto/community',\n  'auto/ai-tools',\n  'auto/media',\n  'auto/food-rides',\n  'auto/surveys-rewards',\n  'auto/domains-hosting',\n  'auto/forums',\n  'auto/google-services',\n  'auto/newsletter',\n  'auto/system-alert',\n  'auto/account-security',\n  'auto/personal',\n  'auto/needs-review',\n  'auto/processed',\n].map((name) => ({ json: { name } }));"
       },
       "id": "d8fcb77d-65aa-4248-b680-726ba2a7553b",
       "name": "Label Names",

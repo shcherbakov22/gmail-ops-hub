@@ -104,6 +104,41 @@
       "archive": true,
       "star": false,
       "markRead": true
+    },
+    "ai-tools": {
+      "archive": false,
+      "star": false,
+      "markRead": false
+    },
+    "media": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "food-rides": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "surveys-rewards": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "domains-hosting": {
+      "archive": false,
+      "star": false,
+      "markRead": false
+    },
+    "forums": {
+      "archive": true,
+      "star": false,
+      "markRead": true
+    },
+    "google-services": {
+      "archive": false,
+      "star": false,
+      "markRead": false
     }
   },
   "domains": {
@@ -722,6 +757,115 @@
       "no-reply.cohost.org",
       "geocaching.com",
       "email.geocaching.com"
+    ],
+    "ai-tools": [
+      "openai.com",
+      "email.openai.com",
+      "openrouter.ai",
+      "cerebras.net",
+      "novelai.net",
+      "mg.novelai.net",
+      "nightcafe.studio",
+      "veed.io",
+      "insights.veed.io",
+      "replit.com",
+      "cursor.com",
+      "anthropic.com",
+      "perplexity.ai",
+      "huggingface.co",
+      "replicate.com",
+      "runpod.io",
+      "together.ai",
+      "minimax.io"
+    ],
+    "media": [
+      "youtube.com",
+      "googlevideo.com",
+      "vimeo.com",
+      "soundtrap.com",
+      "news.soundtrap.com",
+      "tidal.com",
+      "info.tidal.com",
+      "bandcamp.com",
+      "spotify.com",
+      "sketchfab.com",
+      "odysee.com",
+      "mail.odysee.com",
+      "launch.odysee.com",
+      "pocketbook-int.com",
+      "kobo.com",
+      "shop.kobo.com",
+      "z-lib.ai",
+      "z-lib.li"
+    ],
+    "food-rides": [
+      "uber.com",
+      "bolt.eu",
+      "bolt-rider.com",
+      "bolt-food.net",
+      "rides-promotions.bolt.eu",
+      "rides-marketing.bolt.eu",
+      "delivery-marketing.bolt.eu",
+      "glovoapp.com",
+      "wolt.com",
+      "doordash.com"
+    ],
+    "surveys-rewards": [
+      "swagbucks.com",
+      "swagbucksemail.com",
+      "yunosurveys.com",
+      "eu.surveysparrow.email",
+      "surveysparrow.email",
+      "ayetstudios.com",
+      "pointsprizes.com",
+      "profittask.com",
+      "iqtest.com",
+      "coursehero.com",
+      "interact.coursehero.com"
+    ],
+    "domains-hosting": [
+      "porkbun.com",
+      "noip.com",
+      "freemc.host",
+      "email.freemc.host",
+      "pebblehost.com",
+      "contabo.com",
+      "000webhost.com",
+      "idleyhost.com",
+      "falixnodes.net",
+      "tcpshield.com",
+      "portmap.io",
+      "hostilica.net",
+      "namecheap.com",
+      "godaddy.com",
+      "cloudns.net",
+      "dynu.com"
+    ],
+    "forums": [
+      "4pda.to",
+      "4pda.ru",
+      "xda-developers.com",
+      "mailbox.xda-developers.com",
+      "elitepvpers.com",
+      "v3rmillion.net",
+      "proboards.com",
+      "spigotmc.org",
+      "hypixel.net",
+      "minecraft-mp.com",
+      "minecraftservers.org",
+      "minecraft-server-list.com",
+      "reddit.com",
+      "discord.com",
+      "discordapp.com",
+      "matrix.org",
+      "notifs.matrix.org",
+      "irccloud.com",
+      "revolt.chat"
+    ],
+    "google-services": [
+      "google.com",
+      "accounts.google.com",
+      "googlemail.com"
     ]
   },
   "subjectKeywords": {
@@ -777,7 +921,11 @@
       "encomenda chegou",
       "pedido já está disponível",
       "recebemos o teu produto",
-      "details on your shipment"
+      "details on your shipment",
+      "steam purchase",
+      "thank you for your steam purchase",
+      "your purchase",
+      "purchase confirmation"
     ],
     "transaction": [
       "you sent a payment",
@@ -1015,7 +1163,11 @@
       "email otp",
       "verify discord login",
       "восстановление пароля",
-      "ссылка для входа"
+      "ссылка для входа",
+      "steam guard",
+      "authenticator device changed",
+      "authenticator recovery",
+      "recovery started"
     ],
     "personal": [
       "re:",
@@ -1249,6 +1401,83 @@
       "forum reply",
       "friend request",
       "review request"
+    ],
+    "ai-tools": [
+      "openai",
+      "openrouter",
+      "api credits",
+      "model update",
+      "prompt",
+      "ai tool",
+      "llm",
+      "token usage",
+      "usage limit"
+    ],
+    "media": [
+      "new video",
+      "podcast",
+      "music",
+      "album",
+      "ebook",
+      "book sale",
+      "watch now",
+      "streaming",
+      "creator update"
+    ],
+    "food-rides": [
+      "your ride",
+      "ride receipt",
+      "delivery",
+      "food order",
+      "trip with",
+      "order delivered",
+      "promo ride"
+    ],
+    "surveys-rewards": [
+      "survey",
+      "reward",
+      "points",
+      "earn",
+      "cashback",
+      "gift card",
+      "complete this task"
+    ],
+    "domains-hosting": [
+      "domain",
+      "dns",
+      "hosting",
+      "server renewal",
+      "vps",
+      "ssl certificate",
+      "nameserver"
+    ],
+    "forums": [
+      "forum",
+      "thread",
+      "private message",
+      "new reply",
+      "mentioned you",
+      "new post",
+      "topic reply"
+    ],
+    "google-services": [
+      "gmail storage",
+      "storage is full",
+      "storage is 99% full",
+      "storage is 97% full",
+      "storage is 96% full",
+      "google one",
+      "google photos",
+      "google drive",
+      "google docs",
+      "google wallet",
+      "google play",
+      "google cloud",
+      "gemini app",
+      "welcome to gemini",
+      "find hub",
+      "purchase verification settings",
+      "play games profile"
     ]
   },
   "bodyKeywords": {
@@ -1288,7 +1517,9 @@
       "order has been shipped",
       "your order has shipped",
       "order has been received",
-      "payment processed"
+      "payment processed",
+      "steam purchase",
+      "thank you for your steam purchase"
     ],
     "transaction": [
       "transaction id",
@@ -1472,6 +1703,68 @@
       "replied to your",
       "community update",
       "notification settings"
+    ],
+    "ai-tools": [
+      "api credits",
+      "token usage",
+      "model access",
+      "language model",
+      "image generation",
+      "ai generated",
+      "prompt engineering"
+    ],
+    "media": [
+      "watch this video",
+      "listen now",
+      "new episode",
+      "stream now",
+      "ebook",
+      "audiobook",
+      "creator"
+    ],
+    "food-rides": [
+      "ride with",
+      "driver",
+      "delivery address",
+      "food delivery",
+      "order from",
+      "trip fare"
+    ],
+    "surveys-rewards": [
+      "complete surveys",
+      "earn points",
+      "reward balance",
+      "gift card",
+      "cash rewards",
+      "take this survey"
+    ],
+    "domains-hosting": [
+      "dns records",
+      "nameserver",
+      "ssl certificate",
+      "hosting plan",
+      "server renewal",
+      "domain renewal"
+    ],
+    "forums": [
+      "reply to this thread",
+      "forum notification",
+      "private message",
+      "posted a reply",
+      "community forum"
+    ],
+    "google-services": [
+      "gmail storage",
+      "google one",
+      "google photos",
+      "google drive",
+      "google docs",
+      "google wallet",
+      "google play",
+      "gemini app",
+      "storage space",
+      "back up new photos",
+      "find hub network"
     ]
   },
   "attachmentNameKeywords": {
@@ -1541,6 +1834,16 @@
       "report",
       "usage",
       "invoice-cloud"
+    ],
+    "domains-hosting": [
+      "hosting",
+      "domain",
+      "server"
+    ],
+    "food-rides": [
+      "ride",
+      "trip",
+      "delivery"
     ]
   },
   "signals": {
