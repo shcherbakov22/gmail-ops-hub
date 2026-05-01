@@ -75,6 +75,55 @@ function score(scoreboard, reasons, label, points, reason) {
   reasons.push(`${label}: ${reason} (+${points})`);
 }
 
+const labelPriority = [
+  'account-security',
+  'invoice',
+  'receipt',
+  'transaction',
+  'shipping',
+  'travel',
+  'domains-hosting',
+  'cloud-dev',
+  'ai-tools',
+  'google-services',
+  'finance',
+  'support',
+  'shopping',
+  'promotions',
+  'subscription',
+  'job',
+  'social',
+  'community',
+  'forums',
+  'gaming',
+  'media',
+  'food-rides',
+  'surveys-rewards',
+  'system-alert',
+  'personal',
+  'newsletter',
+  'needs-review',
+];
+const priorityByLabel = new Map(labelPriority.map((label, index) => [label, index]));
+
+function priority(label) {
+  return priorityByLabel.get(label) ?? labelPriority.length;
+}
+
+function subjectPoints(label) {
+  if (label === 'account-security') return 12;
+  if (['invoice', 'system-alert', 'job'].includes(label)) return 12;
+  if (['receipt', 'shipping', 'transaction', 'travel'].includes(label)) return 8;
+  if (label === 'support') return 5;
+  return 3;
+}
+
+function bodyPoints(label) {
+  if (label === 'account-security') return 6;
+  if (['invoice', 'receipt', 'system-alert'].includes(label)) return 4;
+  return 2;
+}
+
 function classify(email) {
   const learned = readJsonIfExists(learnedRulesPath, { emails: {}, domains: {} });
   const sender = normalizeSender(email.from);
@@ -82,7 +131,7 @@ function classify(email) {
   const text = String(email.text || '').toLowerCase();
   const snippet = String(email.snippet || '').toLowerCase();
   const html = String(email.html || '').toLowerCase();
-  const body = `${subject}\n${text}\n${snippet}\n${html.slice(0, 20000)}`;
+  const body = `${text}\n${snippet}\n${html.slice(0, 20000)}`;
   const attachments = Array.isArray(email.attachments) ? email.attachments : [];
   const attachmentNames = attachments.map((a) => String(a.filename || '').toLowerCase());
   const attachmentMimeTypes = attachments.map((a) => String(a.mimeType || '').toLowerCase());
@@ -101,10 +150,10 @@ function classify(email) {
     if (domains.some((domain) => domainMatches(sender.domain, domain))) score(scoreboard, reasons, label, points, `sender domain ${sender.domain}`);
   }
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
-    if (hasAny(subject, keywords)) score(scoreboard, reasons, label, label === 'account-security' ? 9 : 3, 'subject keyword');
+    if (hasAny(subject, keywords)) score(scoreboard, reasons, label, subjectPoints(label), 'subject keyword');
   }
   for (const [label, keywords] of Object.entries(rules.bodyKeywords)) {
-    if (hasAny(body, keywords)) score(scoreboard, reasons, label, label === 'account-security' ? 5 : 2, 'body keyword');
+    if (hasAny(body, keywords)) score(scoreboard, reasons, label, bodyPoints(label), 'body keyword');
   }
   for (const [label, keywords] of Object.entries(rules.attachmentNameKeywords)) {
     if (attachmentNames.some((name) => hasAny(name, keywords))) score(scoreboard, reasons, label, 2, 'attachment filename');
@@ -113,7 +162,10 @@ function classify(email) {
   if (sender.email.startsWith('noreply@') || sender.email.startsWith('no-reply@')) score(scoreboard, reasons, 'newsletter', 2, 'noreply sender');
   if (sender.email.includes('@') && !sender.email.startsWith('noreply@') && !sender.email.startsWith('no-reply@')) score(scoreboard, reasons, 'personal', 2, 'direct sender');
 
-  const ranked = Object.entries(scoreboard).sort((a, b) => b[1] - a[1]);
+  const ranked = Object.entries(scoreboard).sort((a, b) => {
+    const scoreDelta = b[1] - a[1];
+    return scoreDelta || priority(a[0]) - priority(b[0]);
+  });
   const top = ranked[0];
   const secondScore = ranked[1]?.[1] ?? 0;
   const label = top && top[1] >= 3 ? top[0] : 'needs-review';

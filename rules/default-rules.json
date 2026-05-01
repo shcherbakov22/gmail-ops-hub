@@ -157,7 +157,6 @@
       "netlify.com",
       "ifttt.com",
       "chess.com",
-      "openrouter.ai",
       "zight.com",
       "email3.gog.com",
       "insights.veed.io",
@@ -591,7 +590,6 @@
       "iqsha.ru"
     ],
     "job": [
-      "linkedin.com",
       "glassdoor.com",
       "upwork.com",
       "turing.com",
@@ -618,7 +616,8 @@
       "twitch.tv",
       "discord.com",
       "discordapp.com",
-      "tumblr.com"
+      "tumblr.com",
+      "linkedin.com"
     ],
     "subscription": [
       "patreon.com",
@@ -649,7 +648,6 @@
       "netlify.com",
       "ngrok.com",
       "ngrok-info.com",
-      "openrouter.ai",
       "n8n.io",
       "tailscale.com",
       "webdock.io",
@@ -839,7 +837,9 @@
       "namecheap.com",
       "godaddy.com",
       "cloudns.net",
-      "dynu.com"
+      "dynu.com",
+      "bloom.host",
+      "servcity.org"
     ],
     "forums": [
       "4pda.to",
@@ -1080,7 +1080,10 @@
       "certificate expiration",
       "account deletion",
       "account is inactive",
-      "shutting down"
+      "shutting down",
+      "server has been transferred",
+      "server is being transferred",
+      "node successfully"
     ],
     "account-security": [
       "verify your email",
@@ -1091,7 +1094,6 @@
       "2fa",
       "one-time code",
       "new sign in",
-      "new sign-in",
       "login from a new device",
       "protect your account",
       "added another way to log in",
@@ -1152,7 +1154,6 @@
       "account setup complete",
       "activate your account",
       "verification code",
-      "password reset",
       "account is at risk",
       "files in yandex disk",
       "xbox game pass ultimate subscription",
@@ -1161,13 +1162,17 @@
       "email address verification",
       "new login to twitter",
       "email otp",
-      "verify discord login",
       "восстановление пароля",
       "ссылка для входа",
       "steam guard",
       "authenticator device changed",
       "authenticator recovery",
-      "recovery started"
+      "recovery started",
+      "unrecognized device",
+      "unrecognised device",
+      "signed in to your",
+      "new device signed in",
+      "password recovery"
     ],
     "personal": [
       "re:",
@@ -1322,7 +1327,9 @@
       "profile viewed",
       "new jobs",
       "hiring",
-      "candidate"
+      "candidate",
+      "job alert",
+      "job recommendation"
     ],
     "social": [
       "commented",
@@ -1334,7 +1341,11 @@
       "upvoted",
       "liked your",
       "notification from",
-      "suggested spaces"
+      "suggested spaces",
+      "follow ",
+      "your puzzle",
+      "your win",
+      "your turn"
     ],
     "subscription": [
       "subscription",

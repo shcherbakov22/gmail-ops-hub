@@ -27,8 +27,60 @@ function scoreMatches(scoreboard, reasons, label, points, reason) {
   reasons.push(`${label}: ${reason} (+${points})`);
 }
 
+const labelPriority = [
+  'account-security',
+  'invoice',
+  'receipt',
+  'transaction',
+  'shipping',
+  'travel',
+  'domains-hosting',
+  'cloud-dev',
+  'ai-tools',
+  'google-services',
+  'finance',
+  'support',
+  'shopping',
+  'promotions',
+  'subscription',
+  'job',
+  'social',
+  'community',
+  'forums',
+  'gaming',
+  'media',
+  'food-rides',
+  'surveys-rewards',
+  'system-alert',
+  'personal',
+  'newsletter',
+  'needs-review',
+];
+const priorityByLabel = new Map(labelPriority.map((label, index) => [label, index]));
+
+function priority(label) {
+  return priorityByLabel.get(label) ?? labelPriority.length;
+}
+
+function subjectPoints(label) {
+  if (label === 'account-security') return 12;
+  if (['invoice', 'system-alert', 'job'].includes(label)) return 12;
+  if (['receipt', 'shipping', 'transaction', 'travel'].includes(label)) return 8;
+  if (label === 'support') return 5;
+  return 3;
+}
+
+function bodyPoints(label) {
+  if (label === 'account-security') return 6;
+  if (['invoice', 'receipt', 'system-alert'].includes(label)) return 4;
+  return 2;
+}
+
 function pickWinner(scoreboard) {
-  const entries = Object.entries(scoreboard).sort((a, b) => b[1] - a[1]);
+  const entries = Object.entries(scoreboard).sort((a, b) => {
+    const scoreDelta = b[1] - a[1];
+    return scoreDelta || priority(a[0]) - priority(b[0]);
+  });
   if (entries.length === 0) return { label: 'needs-review', confidence: 0, ranked: [] };
   const [winner, topScore] = entries[0];
   const secondScore = entries[1]?.[1] ?? 0;
@@ -44,7 +96,7 @@ function classifyEmail(email) {
   const subject = String(email.subject || '').toLowerCase();
   const text = String(email.text || '').toLowerCase();
   const snippet = String(email.snippet || '').toLowerCase();
-  const body = `${subject}\n${text}\n${snippet}`;
+  const body = `${text}\n${snippet}`;
   const attachments = Array.isArray(email.attachments) ? email.attachments : [];
   const attachmentNames = attachments.map((a) => String(a.filename || '').toLowerCase());
   const attachmentMimeTypes = attachments.map((a) => String(a.mimeType || '').toLowerCase());
@@ -61,13 +113,13 @@ function classifyEmail(email) {
 
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
     if (hasAny(subject, keywords)) {
-      scoreMatches(scoreboard, reasons, label, label === 'account-security' ? 9 : 3, 'subject keyword match');
+      scoreMatches(scoreboard, reasons, label, subjectPoints(label), 'subject keyword match');
     }
   }
 
   for (const [label, keywords] of Object.entries(rules.bodyKeywords)) {
     if (hasAny(body, keywords)) {
-      scoreMatches(scoreboard, reasons, label, label === 'account-security' ? 5 : 2, 'body keyword match');
+      scoreMatches(scoreboard, reasons, label, bodyPoints(label), 'body keyword match');
     }
   }
 
