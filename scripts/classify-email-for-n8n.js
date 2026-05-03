@@ -66,7 +66,10 @@ function hasAny(text, keywords) {
   return keywords.some((keyword) => text.includes(keyword));
 }
 
-function domainMatches(senderDomain, ruleDomain) {
+function domainMatches(senderDomain, ruleDomain, allRuleDomains = [], hasGlobalExactDomain = false) {
+  if (senderDomain === ruleDomain) return true;
+  if (hasGlobalExactDomain) return false;
+  if (allRuleDomains.includes(senderDomain)) return false;
   return senderDomain === ruleDomain || senderDomain.endsWith(`.${ruleDomain}`);
 }
 
@@ -137,6 +140,7 @@ function classify(email) {
   const attachmentMimeTypes = attachments.map((a) => String(a.mimeType || '').toLowerCase());
   const scoreboard = {};
   const reasons = [];
+  const hasGlobalExactDomain = Object.values(rules.domains).some((domains) => domains.includes(sender.domain));
 
   if (learned.emails?.[sender.email]) {
     score(scoreboard, reasons, learned.emails[sender.email], 25, `learned sender ${sender.email}`);
@@ -147,7 +151,7 @@ function classify(email) {
 
   for (const [label, domains] of Object.entries(rules.domains)) {
     const points = label === 'account-security' ? 2 : (['newsletter', 'personal'].includes(label) ? 5 : 9);
-    if (domains.some((domain) => domainMatches(sender.domain, domain))) score(scoreboard, reasons, label, points, `sender domain ${sender.domain}`);
+    if (domains.some((domain) => domainMatches(sender.domain, domain, domains, hasGlobalExactDomain))) score(scoreboard, reasons, label, points, `sender domain ${sender.domain}`);
   }
   for (const [label, keywords] of Object.entries(rules.subjectKeywords)) {
     if (hasAny(subject, keywords)) score(scoreboard, reasons, label, subjectPoints(label), 'subject keyword');
