@@ -663,7 +663,8 @@
       "railway.app",
       "fly.io",
       "docker.com",
-      "npmjs.com"
+      "npmjs.com",
+      "codefresh.io"
     ],
     "gaming": [
       "gog.com",
@@ -693,7 +694,8 @@
       "meteorclient.com",
       "guide4csgo.com",
       "airconsole.com",
-      "legacygames.com"
+      "legacygames.com",
+      "steampowered.com"
     ],
     "promotions": [
       "aliexpress.com",
@@ -737,7 +739,8 @@
       "mail.bitnovo.com",
       "wise.com",
       "revolut.com",
-      "stripe.com"
+      "stripe.com",
+      "cex.io"
     ],
     "community": [
       "facebookmail.com",
@@ -840,7 +843,8 @@
       "cloudns.net",
       "dynu.com",
       "bloom.host",
-      "servcity.org"
+      "servcity.org",
+      "notify.cloudflare.com"
     ],
     "forums": [
       "4pda.to",
@@ -1185,7 +1189,10 @@
       "учетной записи майкрософт",
       "учётной записи майкрософт",
       "device is now connected",
-      "connected to your remarkable account"
+      "connected to your remarkable account",
+      "account has been accessed",
+      "accessed from a new ip address",
+      "необычные действия"
     ],
     "personal": [
       "re:",
