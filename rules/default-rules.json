@@ -540,7 +540,8 @@
       "eneba.deals",
       "kinguin.net",
       "g2g.com",
-      "support.g2g.com"
+      "support.g2g.com",
+      "rozetka.com.ua"
     ],
     "travel": [
       "klm-info.com",
@@ -664,7 +665,11 @@
       "fly.io",
       "docker.com",
       "npmjs.com",
-      "codefresh.io"
+      "codefresh.io",
+      "parsec.app",
+      "connect.any.run",
+      "mg.gitlab.com",
+      "services.teamviewer.com"
     ],
     "gaming": [
       "gog.com",
@@ -695,7 +700,10 @@
       "guide4csgo.com",
       "airconsole.com",
       "legacygames.com",
-      "steampowered.com"
+      "steampowered.com",
+      "minehut.com",
+      "m.minehut.com",
+      "roblox.com"
     ],
     "promotions": [
       "aliexpress.com",
@@ -740,7 +748,10 @@
       "wise.com",
       "revolut.com",
       "stripe.com",
-      "cex.io"
+      "cex.io",
+      "mailersp1.binance.com",
+      "post.binance.com",
+      "ses.binance.com"
     ],
     "community": [
       "facebookmail.com",
@@ -798,7 +809,10 @@
       "kobo.com",
       "shop.kobo.com",
       "z-lib.ai",
-      "z-lib.li"
+      "z-lib.li",
+      "mega.nz",
+      "stremio.net",
+      "dropbox.com"
     ],
     "food-rides": [
       "uber.com",
@@ -1192,7 +1206,15 @@
       "connected to your remarkable account",
       "account has been accessed",
       "accessed from a new ip address",
-      "необычные действия"
+      "необычные действия",
+      "email verification",
+      "account created",
+      "ssh key was added",
+      "new platform association",
+      "connected to google",
+      "запрос на вход",
+      "підтвердження адреси електронної пошти",
+      "verificação completa"
     ],
     "personal": [
       "re:",
@@ -1287,7 +1309,10 @@
       "purchase from",
       "fizeste uma compra",
       "nova encomenda",
-      "confirmação de nova encomenda"
+      "confirmação de nova encomenda",
+      "rozetka",
+      "розпродаж",
+      "оплата частинами"
     ],
     "travel": [
       "booking",
@@ -1392,7 +1417,10 @@
       "pull request",
       "workflow run",
       "usage alert",
-      "quota alert"
+      "quota alert",
+      "inactive minehut servers will be deleted",
+      "price change",
+      "get started with parsec"
     ],
     "gaming": [
       "wishlist",
@@ -1402,7 +1430,11 @@
       "steam key",
       "your game",
       "new game",
-      "patch notes"
+      "patch notes",
+      "steam family",
+      "steam gift",
+      "minehut",
+      "minecraft"
     ],
     "promotions": [
       "sale",
@@ -1424,7 +1456,9 @@
       "withdrawal",
       "deposit",
       "card transaction",
-      "paypal"
+      "paypal",
+      "stablecoin changes",
+      "iniciar a transação"
     ],
     "community": [
       "mentioned you",
@@ -1455,7 +1489,13 @@
       "book sale",
       "watch now",
       "streaming",
-      "creator update"
+      "creator update",
+      "your data will be deleted",
+      "ваши данные будут удалены",
+      "файлы в яндекс диске",
+      "mega скучает",
+      "welcome to stremio",
+      "welcome to dropbox"
     ],
     "food-rides": [
       "your ride",
