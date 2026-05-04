@@ -244,6 +244,11 @@
       "z-lib.li",
       "contabo.com",
       "communication.microsoft.com",
+      "notificationemails.microsoft.com",
+      "e-mail.microsoft.com",
+      "ludaprojects.com",
+      "strengthsprofile.com",
+      "openvpn.net",
       "cloudflare.com",
       "news.soundtrap.com",
       "updates.ubisoft.com",
@@ -260,6 +265,8 @@
       "unity3d.com",
       "mail.any.run",
       "browserstack.com",
+      "shodan.io",
+      "any.run",
       "mailbox.xda-developers.com",
       "gitkraken.com",
       "minecraft-mp.com",
@@ -619,7 +626,9 @@
       "discord.com",
       "discordapp.com",
       "tumblr.com",
-      "linkedin.com"
+      "linkedin.com",
+      "viber.com",
+      "snapchat.com"
     ],
     "subscription": [
       "patreon.com",
@@ -669,7 +678,9 @@
       "parsec.app",
       "connect.any.run",
       "mg.gitlab.com",
-      "services.teamviewer.com"
+      "services.teamviewer.com",
+      "shodan.io",
+      "any.run"
     ],
     "gaming": [
       "gog.com",
@@ -700,6 +711,9 @@
       "guide4csgo.com",
       "airconsole.com",
       "legacygames.com",
+      "mojang.com",
+      "id.supercell.com",
+      "y8.com",
       "steampowered.com",
       "minehut.com",
       "m.minehut.com",
@@ -945,7 +959,8 @@
       "your purchase",
       "purchase confirmation",
       "thank you for your gift purchase",
-      "fatura de pagamento"
+      "fatura de pagamento",
+      "подтверждение заказа"
     ],
     "transaction": [
       "you sent a payment",
@@ -1075,7 +1090,9 @@
       "ubisoft forward",
       "summer sale",
       "speed week",
-      "complete your purchase"
+      "complete your purchase",
+      "welcome to windows",
+      "windows 11"
     ],
     "system-alert": [
       "alert",
@@ -1209,10 +1226,28 @@
       "необычные действия",
       "email verification",
       "account created",
+      "account creation",
+      "activate your new account",
+      "your new account",
+      "email verified",
       "ssh key was added",
       "new platform association",
       "connected to google",
       "запрос на вход",
+      "вход в supercell id",
+      "регистрация supercell id",
+      "запрос на регистрацию",
+      "проверьте адрес электронной почты",
+      "подтвердите адрес электронной почты",
+      "подтвердите свою учетную запись",
+      "уведомление об аудите",
+      "неудачна попытка входа",
+      "активация аккаунта",
+      "настройка учетной записи",
+      "аутентификация учетной записи",
+      "проверка адреса электронной почты",
+      "необходима авторизация устройства",
+      "подтверждение по электронной почте",
       "підтвердження адреси електронної пошти",
       "verificação completa"
     ],
@@ -1269,7 +1304,8 @@
       "support.global",
       "invitation:",
       "updated invitation:",
-      "programming basics"
+      "programming basics",
+      "приглашает вас присоединиться"
     ],
     "shipping": [
       "shipment",
@@ -1420,7 +1456,9 @@
       "quota alert",
       "inactive minehut servers will be deleted",
       "price change",
-      "get started with parsec"
+      "get started with parsec",
+      "welcome to azure devops",
+      "welcome to any.run"
     ],
     "gaming": [
       "wishlist",
@@ -1434,7 +1472,8 @@
       "steam family",
       "steam gift",
       "minehut",
-      "minecraft"
+      "minecraft",
+      "welcome to ubisoft"
     ],
     "promotions": [
       "sale",
